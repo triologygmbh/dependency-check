@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>de.triology</groupId>
+        <artifactId>dependency-check</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>war</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>war</name>
+
+    <properties>
+        <dependency-check-format>HTML</dependency-check-format>
+    </properties>
+
+    <dependencies>
+        <!-- This maven module contains a transitive dependency with CVE-->
+        <dependency>
+            <groupId>de.triology</groupId>
+            <artifactId>published-module-with-vulnerability</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <!-- This dependency contains CVE-2014-0114 which will be reported -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+        <!-- This dependency contains CVE-2015-6420, but is in test scope -->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- This dependency contains multiple CVEs, but is in provided scope -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>war</finalName>
+    </build>
+</project>

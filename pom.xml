@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>de.triology</groupId>
+    <artifactId>dependency-check</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>dependency-check</name>
+    <url>http://www.triology.de</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <modules>
+        <module>internal-module-with-vulnerability</module>
+        <module>published-module-with-vulnerability</module>
+        <module>war</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                    <version>1.4.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <configuration>
+                    <!-- Skip artifacts not bundled in distribution (provided scope) -->
+                    <skipProvidedScope>true</skipProvidedScope>
+                    <!-- Suppress false positives or dependencies that cannot be changed for specific reasons.-->
+                    <suppressionFile>suppressed-cves.xml</suppressionFile>
+                </configuration>
+                <!-- Don't specify an execution, because this might take long and is not needed in every build.
+                     A report can be generated on demand using "mvn org.owasp:dependency-check-maven:check"
+                     report will be saved to target/dependency-check-report.html -->
+            </plugin>
+        </plugins>
+    </build>
+</project>
