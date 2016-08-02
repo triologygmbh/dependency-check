@@ -27,7 +27,7 @@
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
     <suppress>
         <!-- This Jackson-related issue seems to be related to module jackson-dataformat-xml, which is not used here.
-        It is considered as false positive.
+        It is considered a false positive.
         See https://github.com/jeremylong/DependencyCheck/issues/517
         In addition it was fixed in version 1.7.4., see https://github.com/FasterXML/jackson-dataformat-xml/issues/199
         -->
