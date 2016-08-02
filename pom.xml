@@ -11,6 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <dependency-check-format>HTML</dependency-check-format>
     </properties>
 
     <modules>
@@ -50,6 +51,7 @@
                     <skipProvidedScope>true</skipProvidedScope>
                     <!-- Suppress false positives or dependencies that cannot be changed for specific reasons.-->
                     <suppressionFile>suppressed-cves.xml</suppressionFile>
+                    <format>${dependency-check-format}</format>
                 </configuration>
                 <!-- Don't specify an execution, because this might take long and is not needed in every build.
                      A report can be generated on demand using "mvn org.owasp:dependency-check-maven:check"

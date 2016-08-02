@@ -13,10 +13,6 @@
     <packaging>war</packaging>
     <name>war</name>
 
-    <properties>
-        <dependency-check-format>HTML</dependency-check-format>
-    </properties>
-
     <dependencies>
         <!-- This maven module contains a transitive dependency with CVE-->
         <dependency>
