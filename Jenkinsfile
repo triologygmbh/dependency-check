@@ -14,7 +14,6 @@ node { // No specific label
 
         stage('Dependency Check') {
             mvn 'org.owasp:dependency-check-maven:check -Ddependency-check-format=XML'
-            //archive 'war/target/dependency-check-report.html'
             step([$class: 'DependencyCheckPublisher', unstableTotalAll: '0'])
 
         }
@@ -24,8 +23,7 @@ node { // No specific label
             junit '**/target/surefire-reports/TEST-*.xml'
         }
     }
-    echo "This would be a good place for sending emails. Build result: " + currentBuild.result
-    step([$class: 'Mailer', recipients: 'johannes.schnatterer@triology.de', notifyEveryUnstableBuild: true, sendToIndividuals: true])
+    step([$class: 'Mailer', recipients: 'a@b.c', notifyEveryUnstableBuild: false, sendToIndividuals: true])
 }
 
 def mvn(def args) {
