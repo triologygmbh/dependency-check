@@ -15,7 +15,6 @@ node { // No specific label
         stage('Dependency Check') {
             mvn 'org.owasp:dependency-check-maven:check -Ddependency-check-format=XML'
             step([$class: 'DependencyCheckPublisher', unstableTotalAll: '0'])
-
         }
 
         stage('Test') {
