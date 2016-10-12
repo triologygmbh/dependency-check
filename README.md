@@ -20,9 +20,9 @@ mvn clean install org.owasp:dependency-check-maven:check
 A report containing a CVE is generated to `war/target/dependency-check-report.html`.
 
 ## Jenkins and XML Report
-The easiest way is to use this in Jenkins is the [pipeline plugin](https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Plugin) (formerly known as workflow plugin).
+The easiest way is to use this in Jenkins is the [pipeline plugin](https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Plugin) (formerly known as workflow plugin). Tested with version 2.4.
 In Jenkins, do the following
-- Install the [OWASP Dependecy-Check Jenkins plugin](https://wiki.jenkins-ci.org/display/JENKINS/OWASP+Dependency-Check+Plugin)
+- Install the [OWASP Dependecy-Check Jenkins plugin](https://wiki.jenkins-ci.org/display/JENKINS/OWASP+Dependency-Check+Plugin) (tested with version 1.4.3)
 - Provide a maven tool called `M3.3'` and a JDK called `JDK8u102`, then
 - Setup a new pipeline job in jenkins and add your repository URL,
 - Optionally add a build parameter `RECIPIENTS` that contains a comma-separated list of all email recipients,
