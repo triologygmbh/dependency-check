@@ -7,18 +7,19 @@ node { // No specific label
             git 'https://github.com/triologygmbh/dependency-check'
         }
 
-        stage('Build') {
-            mvn 'clean install'
+
+        stage('Test') {
+            mvn 'clean test'
+        }
+
+        stage('Package') {
+            mvn 'package -DskipTests'
             archive '**/target/*.jar'
         }
 
         stage('Dependency Check') {
             mvn 'org.owasp:dependency-check-maven:check -Ddependency-check-format=XML'
             step([$class: 'DependencyCheckPublisher', unstableTotalAll: '0'])
-        }
-
-        stage('Test') {
-            mvn 'test'
         }
     }
     // Archive JUnit results, if any
