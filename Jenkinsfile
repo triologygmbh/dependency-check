@@ -22,7 +22,8 @@ node { // No specific label
             junit '**/target/surefire-reports/TEST-*.xml'
         }
     }
-    step([$class: 'Mailer', recipients: 'a@b.c', notifyEveryUnstableBuild: false, sendToIndividuals: true])
+    // Send mail on failure
+    step([$class: 'Mailer', recipients: '$RECIPIENTS', notifyEveryUnstableBuild: true, sendToIndividuals: true])
 }
 
 def mvn(def args) {
