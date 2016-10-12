@@ -19,9 +19,10 @@ node { // No specific label
 
         stage('Test') {
             mvn 'test'
-            junit '**/target/surefire-reports/TEST-*.xml'
         }
     }
+    // Archive JUnit results, if any
+    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/TEST-*.xml'
     // Send mail on failure
     step([$class: 'Mailer', recipients: '$RECIPIENTS', notifyEveryUnstableBuild: true, sendToIndividuals: true])
 }
