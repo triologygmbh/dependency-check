@@ -4,23 +4,28 @@ node { // No specific label
 
     catchError {
         stage('Checkout') {
-            git 'https://github.com/triologygmbh/dependency-check'
+            checkout scm
+            gitClean()
         }
 
-
-        stage('Test') {
-            mvn 'clean test'
-        }
-
-        stage('Package') {
-            mvn 'package -DskipTests'
+        stage('Build') {
+            mvn 'install -DskipTests'
             archive '**/target/*.jar'
         }
 
-        stage('Dependency Check') {
-            mvn 'org.owasp:dependency-check-maven:check -Ddependency-check-format=XML'
-            step([$class: 'DependencyCheckPublisher', unstableTotalAll: '0'])
-        }
+        parallel(
+            test: {
+                stage('Test') {
+                    mvn 'surefire:test'
+                }
+            },
+            dependencyCheck: {
+                stage('Dependency Check') {
+                    mvn 'org.owasp:dependency-check-maven:check -Ddependency-check-format=XML'
+                    step([$class: 'DependencyCheckPublisher', unstableTotalAll: '0'])
+                }
+            }
+        )
     }
     // Archive JUnit results, if any
     junit allowEmptyResults: true, testResults: '**/target/surefire-reports/TEST-*.xml'
@@ -28,7 +33,7 @@ node { // No specific label
     step([$class: 'Mailer', recipients: '$RECIPIENTS', notifyEveryUnstableBuild: true, sendToIndividuals: true])
 }
 
-def mvn(def args) {
+void mvn(String args) {
     def mvnHome = tool 'M3.3'
     def javaHome = tool 'JDK8u102'
 
@@ -44,4 +49,11 @@ def mvn(def args) {
     withEnv(["JAVA_HOME=${javaHome}", "PATH+MAVEN=${mvnHome}/bin:${env.JAVA_HOME}/bin"]) {
         sh "${mvnHome}/bin/mvn ${args} --batch-mode -V -U -e -Dsurefire.useFile=false"
     }
+}
+
+void gitClean() {
+    // Remove all untracked files
+    sh "git clean -df"
+    //Clear all unstaged changes
+    sh 'git checkout -- .'
 }
