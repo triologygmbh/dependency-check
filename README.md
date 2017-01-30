@@ -1,5 +1,9 @@
 # dependency-check
-An example on how to use the [OWASP Dependency-Check maven plugin](http://jeremylong.github.io/DependencyCheck/)
+An example on how to use the [OWASP Dependency-Check maven plugin](http://jeremylong.github.io/DependencyCheck/).
+
+This example belongs to an article published in [Java aktuell](http://www.ijug.eu/java-aktuell/das-magazin.html) 01/2017: 
+[Automatic checks for vulnerabilities in Java project dependencies](https://www.triology.de/en/blog-entries/automatic-checks-for-vulnerabilities-in-java-project-dependencies).  
+The original article (🇩🇪) can be found here: [Automatisierte Überprüfung von Sicherheitslücken in Abhängigkeiten von Java-Projekten](https://www.triology.de/wp-content/uploads/2017/01/01_2017-Java_aktuell-Johannes-Schnatterer_Automatisierte-Ueberpruefung-von-Sicherheitsluecken-in-Abhaengigkeiten-von-Java-Projekten.pdf).  
 
 ## Contents
 This example contains the following
